@@ -1,85 +1,64 @@
-class LLNode<String> {
-  // public static void main(String[]args) {
-  protected String info;
-  protected LLNode<String>
-      link; // Link variable is used to store address of next variable
+class LLNode {
+    public String data;
+    public LLNode next;
 
-  public String getInfo() { return info; }
-
-  public void setInfo(String info) { this.info = info; }
-
-  public LLNode<String> getLink() { return link; }
-
-  public void setLink(LLNode<String> link) { this.link = link; }
-
-  public LLNode(String info) { // Info variable is uded to store info of data
-    this.info = info;
-    link = null; // INITIALLY NEW NODE WILL NOT BE POINTING ANYWHERE
-  }
+    public LLNode(String d) {
+        data = d;
+        next = null;
+    }
 }
 
 class LinkedList {
-  protected LLNode<String>
-      head; // Head variable is uded to store value of first node
+    protected LLNode head;
 
-  public LLNode<String> getHead() { return head; }
-
-  public void setHead(LLNode<String> head) { this.head = head; }
-
-  public void addElement(String info) {
-    LLNode node = new LLNode(
-        info); // As stated above info variable will now store new variable
-
-    if (head == null) { // Empty list head saves address of new node
-      this.head = node;
-    } else {
-      LLNode n = head;
-      while (n.getLink() !=
-             null) { // while loop will work upto the nth element of list
-        n = n.getLink();
-      }
-      n.setLink(node); // LAST ELEMENT SAVES ADDRESS OF NEW NODE
+    public LLNode getHead() {
+        return head;
     }
-  }
 
-  public void show() { // show method will print the list
-    LLNode x = head;
-    System.out.println("Name in the list:-");
-    while (x.getLink() != null) { // when loop runs the address of every next
-                                  // elemnent starts to be updated upto the last
-      System.out.print(" " + x.getInfo());
-      x = x.getLink();
+    public void setHead(LLNode head) {
+        this.head = head;
     }
-    System.out.println(" " + x.getInfo());
-  }
 
-  public void
-  reverse(LLNode head) { // Recursion function is used to reverse the list
-    if (head == null) {
-      return;
+    public void addElement(String data) {
+        LLNode node = new LLNode(data);
+        if (head == null) {
+            this.head = node;
+            return;
+        }
+        LLNode tracerNode = head; // helps us to reach the last node starting from head
+        while (tracerNode.next != null) {
+            tracerNode = tracerNode.next;
+        }
+        tracerNode.next = node; // last node's next points to new node
     }
-    reverse(head.getLink()); // to reverse we call reverse function
-    System.out.print(" " + head.getInfo());
-  }
+
+    public void show() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        LLNode tracerNode = head; // helps us to traverse the list starting from head
+        System.out.print(tracerNode.data); // print the first node
+        tracerNode = tracerNode.next;
+        while (tracerNode.next != null) {
+            System.out.print(" " + tracerNode.data);
+            tracerNode = tracerNode.next;
+        }
+    }
 }
 
 class Test {
 
-  public static void main(String[] args) {
-    LinkedList list = new LinkedList(); // object creation for the test class to
-                                        // print the list
-    list.addElement("Atul");
-    list.addElement("Rani");
-    list.addElement("Kiko");
-    list.addElement("xiang");
-    list.addElement("Yuchi");
-    list.addElement("Priya");
-    list.addElement("Thappar");
-    list.addElement("James");
-    list.addElement("kevin");
+    public static void main(String[] args) {
 
-    list.show(); // To shgow the reversed list show method will be called.
-    System.out.println("Names in list in reverse order:-");
-    list.reverse(list.head);
-  }
+        LinkedList list = new LinkedList();
+        list.addElement("A");
+        list.addElement("B");
+        list.addElement("C");
+        list.addElement("D");
+        list.addElement("E");
+        list.addElement("F");
+
+        list.show();
+    }
 }
